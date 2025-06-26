@@ -24,7 +24,6 @@ def get_image_date(image_path):
 def organize_images_by_date(image_paths, output_dir):
     print("\n[LOG] 📆 Organizing images by date...\n")
     for path in tqdm(image_paths, desc="📂 Organizing", unit="img"):
-        print(f"[FILE] Organizing: {os.path.basename(path)}")
         date_taken = get_image_date(path)
         if not date_taken:
             folder = os.path.join(output_dir, 'UnknownDate')

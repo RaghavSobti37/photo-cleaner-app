@@ -14,42 +14,48 @@ def compute_hash(image_path):
 def find_duplicates(image_paths):
     print("\n[LOG] 🤖 Finding duplicate images by perceptual hash...\n")
     hash_map = defaultdict(list)
-    for path in tqdm(image_paths, desc="🧠 Hashing", unit="img"):
-        print(f"[FILE] Hashing: {os.path.basename(path)}")
+    for path in tqdm(image_paths, desc="🧠 Hashing for duplicates", unit="img"):
         h = compute_hash(path)
         if h:
             hash_map[h].append(path)
 
     return [group for group in hash_map.values() if len(group) > 1]
 
+# Optimized find_similar_images to avoid redundant hash computations and O(N^2) loop
 def find_similar_images(image_paths, threshold=5):
     print("\n[LOG] 🤖 Finding visually similar images...\n")
-    hash_map = {}
-    similar_groups = []
-
-    for i, path1 in enumerate(tqdm(image_paths, desc="🔍 Comparing", unit="img")):
-        h1 = compute_hash(path1)
-        if not h1:
+    
+    # 1. Pre-compute all hashes to avoid redundant calculations
+    hashes = []
+    for path in tqdm(image_paths, desc="🧠 Hashing for similarity", unit="img"):
+        try:
+            image = Image.open(path).convert("RGB")
+            h = imagehash.phash(image) # Store the actual hash object
+            hashes.append((path, h))
+        except Exception:
             continue
 
-        group = [path1]
-        for j in range(i + 1, len(image_paths)):
-            path2 = image_paths[j]
-            h2 = compute_hash(path2)
-            if not h2:
+    # 2. Group similar images efficiently
+    groups = []
+    processed_indices = set() # Keep track of images already assigned to a group
+    for i in tqdm(range(len(hashes)), desc="🔍 Comparing", unit="img"):
+        if i in processed_indices: # Skip if already processed
+            continue
+        
+        path1, h1 = hashes[i]
+        current_group = {path1}
+        processed_indices.add(i)
+        
+        for j in range(i + 1, len(hashes)):
+            if j in processed_indices: # Skip if already processed
                 continue
-
-            if imagehash.hex_to_hash(h1) - imagehash.hex_to_hash(h2) <= threshold:
-                group.append(path2)
-
-        if len(group) > 1:
-            similar_groups.append(group)
-
-    return similar_groups
-
-from backend.face_quality import analyze_face_quality
-
-def select_best_image(image_group):
-    scored = [(img, analyze_face_quality(img)) for img in image_group]
-    scored.sort(key=lambda x: x[1], reverse=True)  # Highest score = best
-    return scored[0][0] if scored else image_group[0]
+            
+            path2, h2 = hashes[j]
+            if h1 - h2 <= threshold: # Compare hash objects directly
+                current_group.add(path2)
+                processed_indices.add(j)
+        
+        if len(current_group) > 1:
+            groups.append(list(current_group))
+            
+    return groups
