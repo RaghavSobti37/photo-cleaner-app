@@ -1,165 +1,77 @@
-# Photo Cleaner App with AI-Powered Duplicate Detection
+<h1 align="center">Photo Cleaner App</h1>
 
-A smart photo organization tool that scans, deduplicates, and organizes your images using AI for best-shot selection. Includes an interactive Streamlit frontend for reviewing and refining duplicates.
+<p align="center">
+  Streamlit photo-cleaning utility for organizing image collections and experimenting with practical media workflows.
+</p>
 
----
+<p align="center">
+  <img src="https://img.shields.io/badge/visibility-public-brightgreen" alt="Public repository" />
+  <img src="https://img.shields.io/badge/maintained-yes-blue" alt="Maintained" />
+  <img src="https://img.shields.io/badge/owner-RaghavSobti37-111827" alt="Owner" />
+</p>
 
-## 📂 Features
+## Overview
 
-* Remove exact and similar-looking duplicates using perceptual hashing
-* Automatically select the best image from duplicates based on face quality (eyes open, smiles, etc.)
-* Organize images into folders by date (from EXIF)
-* Streamlit frontend to review duplicates
-* Manual override: visually select preferred photo from each duplicate group
-* CR2, RAW, HEIC, and other formats supported
+Streamlit photo-cleaning utility for organizing image collections and experimenting with practical media workflows.
 
----
+This README is structured as a professional project handoff: it explains the purpose, stack, setup flow, and maintenance expectations so the repository is easier to evaluate, run, and extend.
 
-## 📸 Example Workflow
+## Highlights
 
-1. **User selects a photo folder**
-2. **Pipeline scans images recursively**
-3. **Duplicates & similar images are grouped**
-4. **AI analyzes expressions, sharpness, and lighting**
-5. **Best image is chosen & highlighted**
-6. **User reviews in Streamlit UI**
-7. **Organized into date folders & saved**
+- Clear implementation of the project goal: Streamlit photo-cleaning utility for organizing image collections and experimenting with practical media workflows.
+- Organized repository structure for maintainable iteration and future extension.
+- Built around Python with pragmatic tooling choices.
+- Tagged for discoverability around image-tools, media-workflow, photo-cleaner, python, streamlit.
 
----
+## Tech Stack
 
-## 🧠 Architecture
+- Python
 
-```mermaid
-flowchart LR
-    A[User Input Path] --> B[Scan Images]
-    B --> C[Find Duplicates]
-    B --> D[Find Similar Images]
-    C --> E[Analyze Face Quality]
-    D --> E
-    E --> F[Select Best per Group]
-    F --> G[Show in Streamlit UI]
-    G --> H{User Confirmation}
-    H -->|Accept| I[Save Bests to Cleaned Folder]
-    H -->|Override| J[User Selection Stored]
-    I --> K[Organize by Date]
-    J --> K
-```
+<p>
+  <img src="https://img.shields.io/badge/Python-111827?style=flat" alt="Python" />
+</p>
 
----
+## Getting Started
 
-## ⚙️ Setup Instructions
+### Prerequisites
 
-### ✅ Prerequisites
+- Git
+- A runtime appropriate for the stack listed above
 
-* Python 3.9 to 3.11 (avoid 3.13 due to some library incompatibility)
-* Git installed
-* Recommended: Virtual Environment
-
-### 📦 Installation
+### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/photo-cleaner.git
-cd photo-cleaner
-
-# Set up virtual environment
-python -m venv venv
-source venv/bin/activate   # or .\venv\Scripts\activate on Windows
-
-# Install dependencies
-pip install -r requirements.txt
+git clone https://github.com/RaghavSobti37/photo-cleaner-app.git
+cd photo-cleaner-app
+python -m venv .venv && .venv\Scripts\activate && pip install -r requirements.txt
 ```
 
----
-
-## 🖥️ Running the App
-
-### Backend (CLI mode)
+### Development
 
 ```bash
-python main.py
+streamlit run main.py
 ```
 
-### Streamlit Frontend
+## Project Structure
 
-```bash
-streamlit run frontend/app.py
-```
+The repository is organized around the source code, configuration, and project assets needed to run or extend the application. Start with the main entry point and configuration files, then follow the feature or module directories from there.
 
----
+## Quality Notes
 
-## 📁 Folder Structure
+- Keep implementation changes small, reviewed, and easy to reason about.
+- Document new environment variables, scripts, and external services as they are added.
+- Prefer clear naming and predictable structure over clever abstractions.
+- Validate user-facing flows after any dependency, routing, or deployment change.
 
-```
-photo-cleaner/
-├── backend/
-│   ├── scanner.py
-│   ├── duplicate_detector.py
-│   ├── face_quality.py
-│   ├── organizer.py
-│   └── utils.py
-├── frontend/
-│   └── app.py
-├── main.py
-├── requirements.txt
-└── README.md
-```
+## Topics
 
----
+- image-tools
+- media-workflow
+- photo-cleaner
+- python
+- streamlit
 
-## 🧪 Sample Use Case
+## Author
 
-* Folder: `D:/New folder/All Photos`
-* Output: `D:/New folder/All Photos/CleanedPhotos`
-* Duplicate folder: `CleanedPhotos/BestDuplicates`
-* Similar folder: `CleanedPhotos/BestSimilar`
+Built and maintained by [Raghav Raj Sobti](https://github.com/RaghavSobti37).
 
-You can review each group and confirm whether to keep the AI-selected image or override manually.
-
----
-
-## 🛠️ Tech Stack
-
-* Python
-* OpenCV
-* Pillow
-* imagehash
-* Streamlit
-* tqdm
-* RawImageReader (for CR2, NEF, ARW)
-* Custom logic for face expression ranking using face landmarks (MediaPipe alt)
-
----
-
-## 🧠 How It Picks the Best Image
-
-Each group is ranked by these heuristics:
-
-* Eyes open > closed
-* Smiles detected > neutral
-* Sharper focus > blurry
-* Good lighting
-* Better centered face composition
-
-Each image is given a score out of 100. Highest scorer is selected by the model.
-
----
-
-## 📈 Future Improvements
-
-* Integrate cloud sync (Google Photos, OneDrive)
-* Add image captioning / tagging
-* Facial recognition for people grouping
-* RetinaFace or YOLO integration
-
----
-
-## 📜 License
-
-MIT License
-
----
-
-## 🤝 Contributions
-
-Feel free to fork, suggest improvements, or report issues!
