@@ -1,0 +1,6 @@
+dist/
+.vercel/
+.vercel_python_packages/
+legacy-cli/.venv/
+legacy-cli/**/__pycache__/
+*.pyc
