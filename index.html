@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Clean duplicate and visually similar photos privately in your browser." />
+    <title>Photo Cleaner</title>
+    <link rel="stylesheet" href="/web/styles.css" />
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">PRIVATE PHOTO UTILITY</p>
+      <h1>Keep best shot.</h1>
+      <p class="intro">Find exact and near-duplicate photos without uploading them. Everything runs in your browser.</p>
+      <section aria-labelledby="cleaner-title">
+        <h2 id="cleaner-title">Clean a batch</h2>
+        <label class="dropzone" for="photos">Choose up to 50 photos, max 20 MB each<input id="photos" type="file" accept="image/*" multiple /></label>
+        <label for="threshold">Similarity sensitivity <output id="threshold-value">5</output><input id="threshold" type="range" min="0" max="16" value="5" /></label>
+        <p class="hint">Lower keeps only near-identical images. Higher groups more visually alike photos.</p>
+        <button id="run" type="button">Analyse photos</button>
+        <p id="status" aria-live="polite"></p>
+      </section>
+      <section id="results" aria-live="polite"></section>
+      <button id="download" type="button" hidden>Download cleaned photos (.zip)</button>
+    </main>
+    <script type="module" src="/web/app.js"></script>
+  </body>
+</html>

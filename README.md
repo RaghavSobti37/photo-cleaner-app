@@ -1,77 +1,42 @@
-<h1 align="center">Photo Cleaner App</h1>
+# Photo Cleaner
 
-<p align="center">
-  Streamlit photo-cleaning utility for organizing image collections and experimenting with practical media workflows.
-</p>
+Private photo-cleaning utility for finding exact and visually similar photos.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/visibility-public-brightgreen" alt="Public repository" />
-  <img src="https://img.shields.io/badge/maintained-yes-blue" alt="Maintained" />
-  <img src="https://img.shields.io/badge/owner-RaghavSobti37-111827" alt="Owner" />
-</p>
+## Browser app
 
-## Overview
+This repository includes a Vercel-ready browser app. It keeps files private: photos are never uploaded, scanned only in the browser, and selected images download as a ZIP.
 
-Streamlit photo-cleaning utility for organizing image collections and experimenting with practical media workflows.
+- Detects exact duplicate groups from an 8x8 perceptual hash.
+- Detects visually similar photos with an adjustable threshold.
+- Retains the highest-resolution photo in each group.
+- Supports batches of up to 50 images, maximum 20 MB each.
 
-This README is structured as a professional project handoff: it explains the purpose, stack, setup flow, and maintenance expectations so the repository is easier to evaluate, run, and extend.
+## Run and verify
 
-## Highlights
-
-- Clear implementation of the project goal: Streamlit photo-cleaning utility for organizing image collections and experimenting with practical media workflows.
-- Organized repository structure for maintainable iteration and future extension.
-- Built around Python with pragmatic tooling choices.
-- Tagged for discoverability around image-tools, media-workflow, photo-cleaner, python, streamlit.
-
-## Tech Stack
-
-- Python
-
-<p>
-  <img src="https://img.shields.io/badge/Python-111827?style=flat" alt="Python" />
-</p>
-
-## Getting Started
-
-### Prerequisites
-
-- Git
-- A runtime appropriate for the stack listed above
-
-### Installation
+No install is needed to run the browser app. Serve the repository root with any static web server:
 
 ```bash
-git clone https://github.com/RaghavSobti37/photo-cleaner-app.git
-cd photo-cleaner-app
-python -m venv .venv && .venv\Scripts\activate && pip install -r requirements.txt
+python -m http.server 8080
 ```
 
-### Development
+Then open `http://localhost:8080`.
 
 ```bash
-streamlit run main.py
+npm test
+npm run check
 ```
 
-## Project Structure
+## Deploy to Vercel
 
-The repository is organized around the source code, configuration, and project assets needed to run or extend the application. Start with the main entry point and configuration files, then follow the feature or module directories from there.
+Import `RaghavSobti37/photo-cleaner-app` in Vercel. Use the **Other** framework preset. No build command or environment variable is required; Vercel serves `index.html` directly.
 
-## Quality Notes
+## Historic local CLI
 
-- Keep implementation changes small, reviewed, and easy to reason about.
-- Document new environment variables, scripts, and external services as they are added.
-- Prefer clear naming and predictable structure over clever abstractions.
-- Validate user-facing flows after any dependency, routing, or deployment change.
+Original Python code remains in `main.py` and `backend/` for local folder-based workflows. It uses paths on the machine it runs on. Browser deployment intentionally cannot access a visitor's filesystem; each person chooses photos explicitly.
 
-## Topics
-
-- image-tools
-- media-workflow
-- photo-cleaner
-- python
-- streamlit
-
-## Author
-
-Built and maintained by [Raghav Raj Sobti](https://github.com/RaghavSobti37).
-
+```bash
+python -m venv .venv
+.venv\\Scripts\\activate
+pip install -r requirements.txt
+python main.py
+```
