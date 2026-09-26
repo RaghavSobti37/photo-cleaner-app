@@ -1,0 +1,4 @@
+legacy-cli/
+test/
+dist/
+__pycache__/

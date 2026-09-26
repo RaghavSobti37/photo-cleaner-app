@@ -32,11 +32,12 @@ Import `RaghavSobti37/photo-cleaner-app` in Vercel. Use the **Other** framework 
 
 ## Historic local CLI
 
-Original Python code remains in `main.py` and `backend/` for local folder-based workflows. It uses paths on the machine it runs on. Browser deployment intentionally cannot access a visitor's filesystem; each person chooses photos explicitly.
+Original Python code remains in `legacy-cli/` for local folder-based workflows. It uses paths on the machine it runs on. Browser deployment intentionally cannot access a visitor's filesystem; each person chooses photos explicitly.
 
 ```bash
+cd legacy-cli
 python -m venv .venv
 .venv\\Scripts\\activate
-pip install -r requirements.txt
+pip install -r requirements-cli.txt
 python main.py
 ```
