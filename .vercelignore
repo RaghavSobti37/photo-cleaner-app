@@ -2,3 +2,4 @@ legacy-cli/
 test/
 dist/
 __pycache__/
+pipeline/

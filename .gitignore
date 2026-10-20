@@ -4,3 +4,6 @@ dist/
 legacy-cli/.venv/
 legacy-cli/**/__pycache__/
 *.pyc
+pipeline/.venv/
+pipeline/**/__pycache__/
+_photoflow/
