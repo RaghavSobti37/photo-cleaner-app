@@ -1,0 +1,5 @@
+numpy>=1.24
+pillow>=10
+imagehash>=4.3
+opencv-python-headless>=4.8,<5   # 4.x keeps the Haar eye/smile models used for best-shot scoring
+pillow-heif>=0.16                # optional: iPhone HEIC photos
